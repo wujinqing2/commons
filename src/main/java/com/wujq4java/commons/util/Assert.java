@@ -1,8 +1,22 @@
 package com.wujq4java.commons.util;
 
 import java.util.Collection;
+import java.util.Map;
+import java.util.regex.Pattern;
 
+/**
+ * 数据校验工具类
+ * 
+ * @author wu.jinqing
+ * @date 2015年4月30日
+ */
 public class Assert {
+	private static final String PHONE_NUMBER_REGEX = "^1[0-9]{10}";
+	private static final String EMAIL_REGEX = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
+	
+	private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile(PHONE_NUMBER_REGEX);
+	private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+	
 	/**
 	 * <pre>
 	 * 判断字符串arg是否不为空，如果arg == null || arg.trim().length() == 0返回false，否则返回true
@@ -31,6 +45,19 @@ public class Assert {
 	
 	/**
 	 * <pre>
+	 * 判断集合是否不为空，如果c == null || c.size() == 0返回false，否则返回true
+	 * <pre>
+	 * 
+	 * @param m
+	 * @return
+	 */
+	public static <K, V> boolean isNotEmpty(Map<K, V> m)
+	{
+		return (m == null || m.size() == 0) ? false : true;
+	}
+	
+	/**
+	 * <pre>
 	 *  判断arg是否不为null, 如果arg == null返回false，否则返回true
 	 * <pre>
 	 * 
@@ -53,5 +80,35 @@ public class Assert {
 	public static String trim(String arg)
 	{
 		return arg != null ? arg.trim() : null;
+	}
+	
+	/**
+	 * <pre>
+	 *  手机号验证
+	 * <pre>
+	 * 
+	 * @param arg
+	 * @return
+	 */
+	public static boolean isPhoneNumber(String arg)
+	{
+		return PHONE_NUMBER_PATTERN.matcher(trim(arg)).matches();
+	}
+	
+	/**
+	 * <pre>
+	 *  邮箱验证
+	 * <pre>
+	 * 
+	 * @param arg
+	 * @return
+	 */
+	public static boolean isEmail(String arg)
+	{
+		return EMAIL_PATTERN.matcher(trim(arg)).matches();
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(isEmail(null ));
 	}
 }
