@@ -45,6 +45,19 @@ public class Assert {
 	
 	/**
 	 * <pre>
+	 * 判断指定数组是否不为空，如果c == null || c.length == 0返回false，否则返回true
+	 * <pre>
+	 * 
+	 * @param c
+	 * @return
+	 */
+	public static <T> boolean isNotEmpty(T[] c)
+	{
+		return (c == null || c.length == 0) ? false : true;
+	}
+	
+	/**
+	 * <pre>
 	 * 判断集合是否不为空，如果c == null || c.size() == 0返回false，否则返回true
 	 * <pre>
 	 * 
