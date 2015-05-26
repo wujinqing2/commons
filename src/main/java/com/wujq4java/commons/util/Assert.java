@@ -11,8 +11,8 @@ import java.util.regex.Pattern;
  * @date 2015年4月30日
  */
 public class Assert {
-	private static final String PHONE_NUMBER_REGEX = "^1[0-9]{10}";
-	private static final String EMAIL_REGEX = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
+	private static final String PHONE_NUMBER_REGEX = "^1[0-9]{10}$";
+	private static final String EMAIL_REGEX = "^[0-9a-zA-Z][0-9a-zA-Z_]+@[0-9a-zA-Z]+(\\.[0-9a-zA-Z]+)+$";
 	
 	private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile(PHONE_NUMBER_REGEX);
 	private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
@@ -88,11 +88,24 @@ public class Assert {
 	 * <pre>
 	 * 
 	 * @param arg
-	 * @return
+	 * @return  arg != null ? arg.trim() : null
 	 */
 	public static String trim(String arg)
 	{
 		return arg != null ? arg.trim() : null;
+	}
+	
+	/**
+	 * <pre>
+	 * 去除字符串arg两端的空格
+	 * <pre>
+	 * 
+	 * @param arg
+	 * @return  arg != null ? arg.trim() : ""
+	 */
+	public static String trimToEmpty(String arg)
+	{
+		return arg != null ? arg.trim() : "";
 	}
 	
 	/**
@@ -105,7 +118,7 @@ public class Assert {
 	 */
 	public static boolean isPhoneNumber(String arg)
 	{
-		return PHONE_NUMBER_PATTERN.matcher(trim(arg)).matches();
+		return PHONE_NUMBER_PATTERN.matcher(trimToEmpty(arg)).matches();
 	}
 	
 	/**
@@ -118,10 +131,11 @@ public class Assert {
 	 */
 	public static boolean isEmail(String arg)
 	{
-		return EMAIL_PATTERN.matcher(trim(arg)).matches();
+		return EMAIL_PATTERN.matcher(trimToEmpty(arg)).matches();
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(isEmail(null ));
+//		System.out.println(isEmail("aa_aa@ss.com.cn" ));
+		System.out.println(isEmail("1231_23@s.qqcom" ));
 	}
 }
